@@ -11,8 +11,19 @@
 
     <artifactId>converter-server</artifactId>
     <dependencies>
-
+        <dependency>
+            <groupId>com.mehdi</groupId>
+            <artifactId>length-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
-
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>

@@ -18,6 +18,7 @@
     <modules>
         <module>shared</module>
         <module>converter-server</module>
+        <module>length-api</module>
     </modules>
 
     <properties>
