@@ -6,7 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
-@ComponentScan({"com.mehdi.api.length.controller"})
+@ComponentScan({"com.mehdi.api.length.controller","com.mehdi.api.length.service"})
 @SpringBootApplication
 public class UnitConverterApplication {
 
