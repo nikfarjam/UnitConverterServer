@@ -11,12 +11,16 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Random;
 
+import static com.mehdi.util.MathUtil.calculateFractionLength;
+import static com.mehdi.util.MathUtil.roundTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = com.mehdi.api.length.service.LengthConverterImpl.class)
 class LengthConverterTest {
+
+    private static final int DEFAULT_FRACTION = 2;
 
     @Autowired
     private LengthConverter lengthConverter;
@@ -33,7 +37,7 @@ class LengthConverterTest {
     void meterToFeetRandomValue() {
         double randomValue = new Random().nextDouble();
         double calcValue = lengthConverter.meterToFeet(randomValue);
-        assertEquals(randomValue / LengthUnitConstants.FEET_TO_METER, calcValue,
+        assertEquals(roundTo(randomValue / LengthUnitConstants.FEET_TO_METER, DEFAULT_FRACTION), calcValue,
                 "calculated value for " + randomValue + " is " + calcValue + " and not valid");
     }
 
@@ -42,8 +46,27 @@ class LengthConverterTest {
     void meterToFeetMaxPositiveValue() {
         double max = Double.MAX_VALUE;
         double calcValue = lengthConverter.meterToFeet(max);
-        assertEquals(max / LengthUnitConstants.FEET_TO_METER, calcValue,
+        assertEquals(roundTo(max / LengthUnitConstants.FEET_TO_METER, 2), calcValue,
                 "calculated value for " + max + " is " + calcValue + " and not valid");
+    }
+
+    @Test
+    @DisplayName("Default fraction must be 2")
+    void meterToFeetDefaultFraction() {
+        double meter = 10d;
+        double calcValue = lengthConverter.meterToFeet(meter);
+        assertEquals(DEFAULT_FRACTION, calculateFractionLength(calcValue), "Default fraction for meterToFeet() must be exactly 2");
+    }
+
+    @Test
+    @DisplayName("Test meter to feet by given fraction")
+    void meterToFeetFraction() {
+        double meter = 10d;
+
+        for (int numFraction = 0; numFraction < 5; numFraction++) {
+            double calcValue = lengthConverter.meterToFeet(meter, numFraction);
+            assertEquals(numFraction, calculateFractionLength(calcValue), "Default fraction for meterToFeet() must be exactly " + numFraction);
+        }
     }
 
 }
