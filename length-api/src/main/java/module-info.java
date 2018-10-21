@@ -7,5 +7,7 @@ open module com.mehdi.api.length.controller {
     requires spring.context;
     requires spring.beans;
 
+    requires com.mehdi.util;
+
     exports com.mehdi.api.length.controller;
 }
