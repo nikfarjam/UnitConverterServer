@@ -17,8 +17,12 @@ public class LengthConverterController {
 
     private static final Logger logger = LogManager.getLogger(LengthConverterController.class.getName());
 
-    @Autowired
     private LengthConverter lengthConverter;
+
+    @Autowired
+    public LengthConverterController(LengthConverter lengthConverter) {
+        this.lengthConverter = lengthConverter;
+    }
 
     @RequestMapping("meterToFeet")
     public LengthResponse meterToFeet(@RequestParam(value="meter") Double meter) {
