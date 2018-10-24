@@ -17,4 +17,4 @@ RUN mkdir /tmp/java && cd $_ && `
 ENV JAVA_HOME=/opt/java
 ENV PATH="$PATH:$JAVA_HOME/bin"
 
-CMD /bin/bash
+ENTRYPOINT ["java","--version"]
