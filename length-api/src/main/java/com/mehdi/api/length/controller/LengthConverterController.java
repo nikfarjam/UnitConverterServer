@@ -20,7 +20,7 @@ public class LengthConverterController {
     private LengthConverter lengthConverter;
 
     @Autowired
-    public LengthConverterController(LengthConverter lengthConverter) {
+    public LengthConverterController(final LengthConverter lengthConverter) {
         this.lengthConverter = lengthConverter;
     }
 
