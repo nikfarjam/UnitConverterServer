@@ -13,7 +13,8 @@ import java.util.Random;
 
 import static com.mehdi.util.MathUtil.calculateFractionLength;
 import static com.mehdi.util.MathUtil.roundTo;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(SpringExtension.class)
@@ -29,7 +30,7 @@ class LengthConverterTest {
     @DisplayName("Test 0 for lengthConverter.meterToFeet()")
     void meterToFeetZero() {
         assertNotNull(lengthConverter, "LengthConverter must not be nell");
-        assertEquals(0, lengthConverter.meterToFeet(0), "O m is exactly 0 foot");
+        assertThat("O m is exactly 0 foot", lengthConverter.meterToFeet(0), is(0d));
     }
 
     @Test
@@ -37,8 +38,8 @@ class LengthConverterTest {
     void meterToFeetRandomValue() {
         double randomValue = new Random().nextDouble();
         double calcValue = lengthConverter.meterToFeet(randomValue);
-        assertEquals(roundTo(randomValue / LengthUnitConstants.FEET_TO_METER, DEFAULT_FRACTION), calcValue,
-                "calculated value for " + randomValue + " is " + calcValue + " and not valid");
+        assertThat("calculated value for " + randomValue + " is " + calcValue + " and not valid",
+                roundTo(randomValue / LengthUnitConstants.FEET_TO_METER, DEFAULT_FRACTION), is(calcValue));
     }
 
     @Test
@@ -46,8 +47,9 @@ class LengthConverterTest {
     void meterToFeetMaxPositiveValue() {
         double max = Double.MAX_VALUE;
         double calcValue = lengthConverter.meterToFeet(max);
-        assertEquals(roundTo(max / LengthUnitConstants.FEET_TO_METER, 2), calcValue,
-                "calculated value for " + max + " is " + calcValue + " and not valid");
+        assertThat("calculated value for " + max + " is " + calcValue + " and not valid",
+                roundTo(max / LengthUnitConstants.FEET_TO_METER, 2), is(calcValue)
+        );
     }
 
     @Test
@@ -55,7 +57,8 @@ class LengthConverterTest {
     void meterToFeetDefaultFraction() {
         double meter = 10d;
         double calcValue = lengthConverter.meterToFeet(meter);
-        assertEquals(DEFAULT_FRACTION, calculateFractionLength(calcValue), "Default fraction for meterToFeet() must be exactly 2");
+        assertThat("Default fraction for meterToFeet() must be exactly 2",
+                calculateFractionLength(calcValue), is(DEFAULT_FRACTION));
     }
 
     @Test
@@ -65,7 +68,8 @@ class LengthConverterTest {
 
         for (int numFraction = 0; numFraction < 5; numFraction++) {
             double calcValue = lengthConverter.meterToFeet(meter, numFraction);
-            assertEquals(numFraction, calculateFractionLength(calcValue), "Default fraction for meterToFeet() must be exactly " + numFraction);
+            assertThat("Default fraction for meterToFeet() must be exactly " + numFraction,
+                    calculateFractionLength(calcValue), is(numFraction));
         }
     }
 
