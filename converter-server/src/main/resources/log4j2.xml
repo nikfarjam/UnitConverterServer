@@ -22,7 +22,7 @@
     <Loggers>
         <Root level="debug" additivity="false">
             <appender-ref ref="console"/>
-            <appender-ref ref="fileLogger" level="warn"/>
+            <appender-ref ref="fileLogger" level="info"/>
         </Root>
     </Loggers>
 </Configuration>

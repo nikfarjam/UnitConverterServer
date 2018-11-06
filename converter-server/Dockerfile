@@ -4,7 +4,8 @@ ARG BUILD=target/
 ENV APP_ROOT=/opt/uc-server/
 
 COPY ${BUILD}/converter-server-1.0-SNAPSHOT.jar ${APP_ROOT}/app.jar
-COPY ${BUILD}/dependency/config/ ${APP_ROOT}/
+
+VOLUME /tmp/logs
 
 EXPOSE 8080
 
