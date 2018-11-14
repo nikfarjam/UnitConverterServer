@@ -17,16 +17,21 @@ public class LengthConverterController {
 
     private static final Logger logger = LogManager.getLogger(LengthConverterController.class.getName());
 
-    @Autowired
     private LengthConverter lengthConverter;
 
+    @Autowired
+    public LengthConverterController(final LengthConverter lengthConverter) {
+        this.lengthConverter = lengthConverter;
+    }
+
     @RequestMapping("meterToFeet")
-    public LengthResponse meterToFeet(@RequestParam(value="meter") Double meter) {
+    public LengthResponse meterToFeet(@RequestParam(value="meter") Double meter,
+                                      @RequestParam(value="fraction", defaultValue = "2") Integer fraction) {
         logger.debug("Input meter value is {}",meter);
         if (meter == null) {
             return new LengthResponse(null, UNIT_FEET, MESSAGE_INVALID_INPUT);
         }
-        double feet = lengthConverter.meterToFeet(meter);
+        double feet = lengthConverter.meterToFeet(meter, fraction);
         return new LengthResponse(feet, UNIT_FEET, MESSAGE_SUCCESS);
     }
 }
